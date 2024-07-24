@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "intro-to-consultancy",
+    "prod": "intro-to-consultancy"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

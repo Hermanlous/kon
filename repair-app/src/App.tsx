@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import NewRepair from './NewRepair';
-import RepairList from './RepairList';
-import './index.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/NavBar';
+import LandingPage from './components/LandingPage';
+import NewRepair from './functionality/NewRepair';
+import RepairList from './functionality/RepairList';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -13,7 +15,7 @@ interface Repair {
   date: string;
 }
 
-const App: React.FC = () => {
+const RepairApp: React.FC = () => {
   const [repairs, setRepairs] = useState<Repair[]>([]);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const App: React.FC = () => {
           id: doc.id,
           description: data.description,
           fixType: data.fixType,
-          email: data.email,
+          email: 'hermanrorholtlous@gmail.com',
           date: data.date
         } as Repair;
       });
@@ -42,13 +44,33 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
-      <div className="max-w-lg w-full bg-gray-100 p-6 rounded shadow-md">
-        <h1 className="text-2xl font-bold mb-4 text-center">Repair App</h1>
-        <NewRepair addRepair={addRepair} />
-        <RepairList repairs={repairs} />
+    <div className="min-h-screen bg-blue-200 flex flex-col items-center justify-start p-6">
+      <div className="w-full max-w-4xl bg-blue-50 border-4 border-gray-800 rounded-lg">
+        <header className="py-4 border-b-4 rounded-lg border-gray-800">
+          <h1 className="text-xl font-semibold text-center" style={{ fontFamily: 'Arial, sans-serif' }}>RepairStuff</h1>
+        </header>
+        <main className="p-4 bg-blue-50">
+          <NewRepair addRepair={addRepair} />
+          <RepairList repairs={repairs} />
+        </main>
       </div>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/app" element={<RepairApp />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 };
 

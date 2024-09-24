@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { db } from '../firebase';
 
 interface NewRepairProps {
   addRepair: (description: string, fixType: string, email: string, date: string) => Promise<void>;
@@ -21,8 +21,8 @@ const NewRepair: React.FC<NewRepairProps> = ({ addRepair }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 space-y-4">
-      <div>
+    <form onSubmit={handleSubmit} className="mb-4 space-y-4 border-4 rounded-lg border-gray-800">
+      <div className='p-4'>
         <label className="block text-gray-700">Beskrivelse:</label>
         <input
           type="text"
@@ -32,8 +32,8 @@ const NewRepair: React.FC<NewRepairProps> = ({ addRepair }) => {
           className="border p-2 rounded w-full shadow"
           required
         />
-      </div>
-      <div>
+      
+    
         <label className="block text-gray-700">Type fiks:</label>
         <select
           title="Type"
@@ -45,8 +45,7 @@ const NewRepair: React.FC<NewRepairProps> = ({ addRepair }) => {
           <option value="Liten">Liten</option>
           <option value="Stor">Stor</option>
         </select>
-      </div>
-      <div>
+
         <label className="block text-gray-700">E-post:</label>
         <input
           type="email"
@@ -56,10 +55,10 @@ const NewRepair: React.FC<NewRepairProps> = ({ addRepair }) => {
           className="border p-2 rounded w-full shadow"
           required
         />
-      </div>
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded shadow hover:bg-blue-700 w-full">
+      <button type="submit" className="bg-blue-100 text-black p-2 shadow hover:bg-blue-300 border-2 border-gray-800 rounded-lg w-full mt-4">
         Add Repair
       </button>
+      </div>
     </form>
   );
 };
